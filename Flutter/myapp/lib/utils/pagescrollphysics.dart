@@ -21,9 +21,9 @@ class PagingScrollPhysics extends ScrollPhysics {
   double _getTargetPixels(ScrollMetrics position, Tolerance tolerance, double velocity) {
     double page = _getPage(position);
     if (velocity < -tolerance.velocity) {
-      page -= 0.5;
+      page -= 1.0;
     } else if (velocity > tolerance.velocity) {
-      page += 0.5;
+      page += 1.0;
     }
     return _getPixels(page.roundToDouble());
   }

@@ -5,16 +5,29 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/ui/calendar_model.dart';
+import 'package:myapp/utils/calendar-logic.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
 class Calendar extends StatefulWidget {
 
+  final ScrollController listController;
+
+  const Calendar({
+    required this.listController
+  });
+
   @override
-  _CalendarState createState() => _CalendarState();
+  _CalendarState createState() => _CalendarState(listController: listController);
 }
 
 class _CalendarState extends State<Calendar> {
+
+   final ScrollController listController;
+
+    _CalendarState({
+      required this.listController
+    });
 
     DateTime _selectedDay = DateTime.now();
 
@@ -58,6 +71,18 @@ class _CalendarState extends State<Calendar> {
   void _onDaySelected(DateTime day, DateTime day2) {
     setState(() {
       print(day);
+      print(listController);
+
+      if(day.isBefore(DateTime.now().subtract(Duration(days: 1)))) {
+        print("Selected day is before today, skipping.");
+        return;
+      }
+
+      int index = (day.difference(DateTime.now())).inDays + 1;
+
+      print("Index: " + index.toString());
+
+      listController.animateTo(index*160, duration: Duration(milliseconds: 400), curve: Curves.fastOutSlowIn);
       _selectedDay = day;
       // _selectedEvents = events;
     });
@@ -184,12 +209,14 @@ class _CalendarState extends State<Calendar> {
               canMarkersOverflow: true,
               markerDecoration: BoxDecoration(color: Colors.white),
               todayTextStyle: TextStyle(color: Colors.black),
-              todayDecoration: BoxDecoration(color: Colors.white54),
+              todayDecoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.all(Radius.circular(10.0))),
               defaultTextStyle: TextStyle(color: Colors.white, fontSize: 15),
               selectedDecoration: BoxDecoration(color: Colors.green),
               outsideTextStyle: TextStyle(color: Colors.white60),
               weekendTextStyle: TextStyle(color: Colors.white60),
               outsideDaysVisible: false,
+              selectedTextStyle: TextStyle(color: Colors.blue),
+              // focusColor: Colors.red
             ),
             
             onDaySelected: _onDaySelected,
@@ -200,6 +227,9 @@ class _CalendarState extends State<Calendar> {
             ),
 
             focusedDay: _selectedDay,
+            enabledDayPredicate: (date) {
+              return DateTime.now().subtract(Duration(days: 1)).isBeforeOrEq(date);
+            },
             firstDay: DateTime(DateTime.now().year, DateTime.now().month, 1),
             lastDay: DateTime(DateTime.now().year, DateTime.now().month + 1, 0)
             
