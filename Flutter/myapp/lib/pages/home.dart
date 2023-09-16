@@ -78,53 +78,56 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromRGBO(102, 189, 137, 1),
         body: Padding(
-      padding: const EdgeInsets.only(
-        top: padding,
-        bottom: padding,
-        left: padding / 2,
-        right: padding / 2,
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        Expanded(
-            child: Row(children: [
-          _user != null
-              ? Column(
-                  children: [
-                    Expanded(child: UserWidget(user: _user)),
-                    ElevatedButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => const MainPage())),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.green),
-                      ),
-                      child: const Text('Calendar'),
+          padding: const EdgeInsets.only(
+            top: padding,
+            bottom: padding,
+            left: padding / 2,
+            right: padding / 2,
+          ),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Expanded(
+                child: Row(children: [
+              _user != null
+                  ? Column(
+                      children: [
+                        Image.network(_user!.pictureUrl.toString()),
+                        Text("Welcome to PlanPilot, ${_user!.name}"),
+                        ElevatedButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => const MainPage())),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                          ),
+                          child: const Text('Go to your calendar'),
+                        )
+                      ],
                     )
-                  ],
-                )
-              : Container()
-        ])),
-        _user != null
-            ? ElevatedButton(
-                onPressed: logout,
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.green),
-                ),
-                child: const Text('Logout'),
-              )
-            : ElevatedButton(
-                onPressed: login,
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.green),
-                ),
-                child: const Text('Login'),
-              )
-      ]),
-    ));
+                  : const Expanded(child: HeroWidget())
+            ])),
+            _user != null
+                ? ElevatedButton(
+                    onPressed: logout,
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    child: const Text('Logout'),
+                  )
+                : ElevatedButton(
+                    onPressed: login,
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    child: const Text('Login'),
+                  )
+          ]),
+        ));
   }
 }
