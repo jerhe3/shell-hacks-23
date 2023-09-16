@@ -19,6 +19,9 @@ dependencies:
   markdown_widget: ^2.2.0
   auth0_flutter: ^1.2.1
   google_maps_flutter: ^2.5.0
+  table_calendar: ^3.0.9
+  google_fonts: ^4.0.4
+  font_awesome_flutter: ^10.5.0
 
 dev_dependencies:
   flutter_test:
