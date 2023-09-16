@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/pages/mainPage.dart';
+import 'package:myapp/utils/calendar/calendar-utils.dart';
+import 'package:myapp/utils/calendar/demo-data.dart';
+import 'package:myapp/utils/calendar/optimizer.dart';
 import 'authPages/authpage.dart';
 
 import 'package:auth0_flutter/auth0_flutter.dart';
@@ -78,56 +81,16 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(102, 189, 137, 1),
-        body: Padding(
-          padding: const EdgeInsets.only(
-            top: padding,
-            bottom: padding,
-            left: padding / 2,
-            right: padding / 2,
-          ),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Expanded(
-                child: Row(children: [
-              _user != null
-                  ? Column(
-                      children: [
-                        Image.network(_user!.pictureUrl.toString()),
-                        Text("Welcome to PlanPilot, ${_user!.name}"),
-                        ElevatedButton(
-                          onPressed: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => const MainPage())),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                          ),
-                          child: const Text('Go to your calendar'),
-                        )
-                      ],
-                    )
-                  : const Expanded(child: HeroWidget())
-            ])),
-            _user != null
-                ? ElevatedButton(
-                    onPressed: logout,
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                    ),
-                    child: const Text('Logout'),
-                  )
-                : ElevatedButton(
-                    onPressed: login,
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                    ),
-                    child: const Text('Login'),
-                  )
-          ]),
-        ));
+      body: MainPage(),
+      // bottomNavigationBar: BottomNavigationBar(items:
+      //   [BottomNavigationBarItem(icon: Icon(Icons.star), label: "Hi there"),
+      //   BottomNavigationBarItem(icon: ImageIcon(AssetImage('/assets/logo-alone.png')), label: "Bye")],
+      //   currentIndex: 0,
+      //   selectedItemColor: Theme.of(context).primaryColor,
+      //   onTap: (value) {
+      //     print("Tapped");
+      //   },
+      //   ),
+    ); //Scaffold(body: MainPage(), bottomNavigationBar: AppBar(),);
   }
 }
