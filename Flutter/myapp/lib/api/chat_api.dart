@@ -1,12 +1,13 @@
 import 'package:myapp/models/chat_message.dart';
 import 'package:dart_openai/dart_openai.dart';
+import 'package:myapp/api/secrets.dart';
 
 class ChatApi {
   static const _model = 'gpt-3.5-turbo';
 
   ChatApi() {
-    OpenAI.apiKey = 'API_KEY';
-    OpenAI.organization = 'ORG';
+    OpenAI.apiKey = api_key;
+    OpenAI.organization = api_org;
   }
 
   Future<String> completeChat(List<ChatMessage> messages) async {

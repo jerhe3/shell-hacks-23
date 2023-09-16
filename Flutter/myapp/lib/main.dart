@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/api/chat_api.dart';
+import 'package:myapp/chat_page.dart';
 import 'package:myapp/pages/home.dart';
 import 'package:myapp/pages/mainPage.dart';
 import 'package:myapp/utils/colors.dart';
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Schedule Builder',
+      title: 'ChatGPT Client',
       theme: ThemeData(
         primarySwatch:
             MaterialColorGenerator.from(Color.fromRGBO(102, 189, 137, 1)),
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
         focusColor:
             MaterialColorGenerator.from(Color.fromRGBO(146, 189, 163, 1)),
       ),
-      home: Home(),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
