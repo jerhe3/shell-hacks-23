@@ -1,0 +1,64 @@
+PODS:
+  - Auth0 (2.5.0):
+    - JWTDecode (~> 3.1)
+    - SimpleKeychain (~> 1.1)
+  - auth0_flutter (1.2.1):
+    - Auth0 (~> 2.3)
+    - Flutter
+  - Flutter (1.0.0)
+  - google_maps_flutter_ios (0.0.1):
+    - Flutter
+    - GoogleMaps (< 8.0)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
+  - JWTDecode (3.1.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - SimpleKeychain (1.1.0)
+  - url_launcher_ios (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - auth0_flutter (from `.symlinks/plugins/auth0_flutter/ios`)
+  - Flutter (from `Flutter`)
+  - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Auth0
+    - GoogleMaps
+    - JWTDecode
+    - SimpleKeychain
+
+EXTERNAL SOURCES:
+  auth0_flutter:
+    :path: ".symlinks/plugins/auth0_flutter/ios"
+  Flutter:
+    :path: Flutter
+  google_maps_flutter_ios:
+    :path: ".symlinks/plugins/google_maps_flutter_ios/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+
+SPEC CHECKSUMS:
+  Auth0: 72f19ad566fdf57f07bf37f828afd0c1570769a5
+  auth0_flutter: ce053409c0a080736e341c3b94084c96cc8d4136
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  google_maps_flutter_ios: abdac20d6ce8931f6ebc5f46616df241bfaa2cfd
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
+  JWTDecode: 3eaab1e06b6f4dcbdd6716aff09ba4c2104ca8b7
+  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  SimpleKeychain: f8707c8e97b38c6a6e687b17732afc9bcef06439
+  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
+
+PODFILE CHECKSUM: bd295fc198b245bb51189c8140d55e735c8dd822
+
+COCOAPODS: 1.11.3
