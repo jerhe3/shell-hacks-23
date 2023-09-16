@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/expand.dart';
 import 'package:myapp/pages/home.dart';
 import 'package:myapp/utils/colors.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: MaterialColorGenerator.from(Color.fromRGBO(102, 189, 137, 1.0)),
         secondaryHeaderColor: MaterialColorGenerator.from(Color.fromRGBO(229, 234, 250, 1.0)),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:  MyHomePage1(title: "thing",),
     );
   }
 }
