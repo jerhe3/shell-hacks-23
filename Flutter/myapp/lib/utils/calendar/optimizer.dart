@@ -7,7 +7,7 @@ import 'package:myapp/utils/calendar/structures.dart';
 
 class Optimizer {
 
-  final int ITERATIONS = 1;
+  final int ITERATIONS = 10;
   
   // The number of minutes to snap an event to; the lower the slower
   final int TICKS = 60;
@@ -39,24 +39,25 @@ class Optimizer {
       adjustedDailyRanges.add(copy);
     }
 
-    dailyRanges.forEach((element) { print(element.toString()); });
+    // dailyRanges.forEach((element) { print(element.toString()); });
 
     // Loop through INTERATION(#) random variations of mutable events and store the ones that work
+    Random rand = Random();
     List<List<Event>> storedDistributions = List.empty(growable: true);
     for(int i=0; i<ITERATIONS; ++i) {
       // Copy events
-      List<Event> newDist = events;
+      List<Event> newDist = List.from(events);
       for(int j=0; j<events.length; ++j) {
         // Pick a random start time within the range that fits the event in
 
         int randomDay = 0;
         if(range.duration.inDays>1) {
-          randomDay = Random().nextInt(range.duration.inDays);
+          randomDay = rand.nextInt(range.duration.inDays);
         }
 
         // Pick a random 15 minute slot in the time frame
         int slotCount = (adjustedDailyRanges[j][randomDay].duration.inMinutes / TICKS).floor();
-        int slot = Random().nextInt(slotCount);
+        int slot = rand.nextInt(slotCount);
         DateTime startDay = range.start.add(Duration(days: randomDay)).startOfDay;
         DateTime rangeStart = adjustedDailyRanges[j]![randomDay].start;
         DateTime startTime = startDay.add(Duration(hours: rangeStart.hour, minutes: rangeStart.minute));
@@ -64,8 +65,7 @@ class Optimizer {
 
         newDist[j] = Event(DateTimeRange(start: startTime, end: startTime.add(events[j].duration())), events[j].name);
       }
-
-      
+      storedDistributions.add(newDist);
     }
 
     // Loop through stored combinations and rate them
@@ -78,13 +78,26 @@ class Optimizer {
     // SORT THE LIST !!!!!!!
     gradedDistributions.sort((a,b) => a.grade.compareTo(b.grade));
 
+    gradedDistributions.forEach((element) {
+      if(element.grade >= 0) print(element);
+    });
+
     return gradedDistributions.first.events;
 
   }
 
   // Using the events given in the distribution, rate it
   double score(List<Event> events, OptimizeConfig config) {
-    return 0.0;
+
+    double SCORE = 0.0;
+    
+    // Check if there is overlap in any events
+    if(Event.eventsHaveAnyConflict(events)) SCORE -= 100;
+
+    
+
+    return SCORE;
+
   }
   
 
@@ -105,5 +118,10 @@ class GradedDistribution {
   final double grade;
 
   GradedDistribution({required this.events, required this.grade});
+
+  @override
+  String toString() {
+    return grade.toString() + ": " + events.toString();
+  }
 
 }
