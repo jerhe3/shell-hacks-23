@@ -5,7 +5,7 @@ import 'package:myapp/widgets/message_composer.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({
+  const ChatPage({  
     required this.chatApi,
     super.key,
   });
@@ -61,6 +61,8 @@ class _ChatPageState extends State<ChatPage> {
         _awaitingResponse = false;
       });
     } catch (err) {
+      print("DJKFLSJKLFJDSLKJFLKDSJFLKDSJFKL");
+      print(err.runtimeType);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('An error occurred. Please try again.')),
       );

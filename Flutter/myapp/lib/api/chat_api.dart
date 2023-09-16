@@ -5,8 +5,8 @@ class ChatApi {
   static const _model = 'gpt-3.5-turbo';
 
   ChatApi() {
-    OpenAI.apiKey = 'API_KEY';
-    OpenAI.organization = 'ORG';
+    OpenAI.apiKey = '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';
+    OpenAI.organization = 'Hynds Productions, LLC';
   }
 
   Future<String> completeChat(List<ChatMessage> messages) async {
