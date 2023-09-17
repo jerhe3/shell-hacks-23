@@ -1,6 +1,8 @@
+import 'package:dart_openai/dart_openai.dart';
+
 class ChatMessage {
-  ChatMessage(this.content, this.isUserMessage);
+  ChatMessage(this.content, this.role);
 
   final String content;
-  final bool isUserMessage;
+  final OpenAIChatMessageRole role;
 }
