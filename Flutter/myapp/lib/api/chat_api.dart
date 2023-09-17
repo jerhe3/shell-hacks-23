@@ -1,12 +1,12 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:myapp/models/chat_message.dart';
 import 'package:dart_openai/dart_openai.dart';
-import 'package:myapp/api/secrets.dart';
 
 class ChatApi {
   static const _model = 'gpt-4';
 
   ChatApi() {
-    OpenAI.apiKey = api_key;
+    OpenAI.apiKey = dotenv.env['API_KEY']!;
     // OpenAI.organization = api_org;
   }
 

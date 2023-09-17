@@ -147,6 +147,7 @@ class HomeState extends State<Home> {
                     ],
                   )
           ]),
-        ));
+        ),
+      );
   }
 }
