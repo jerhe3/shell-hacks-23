@@ -38,7 +38,6 @@ class DayDisplayState extends State<DayDisplay> {
           constraints: BoxConstraints(maxWidth: 350),
           child: GestureDetector(
             onTapDown: (details) {
-              print("DJKLHFSJKHF");
               setState(() {
                 _scale = 2.0;
               });
@@ -52,9 +51,9 @@ class DayDisplayState extends State<DayDisplay> {
                     color: Theme.of(context).cardColor),
                 height: 140,
                 child: Row(children: [
-                  SizedBox.fromSize(
-                      size: Size(150, 140),
-                      child: Container(
+                  // SizedBox.fromSize(
+                  //     size: Size(120, 140),
+                      Container(
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor),
                         child: Padding(
@@ -77,7 +76,7 @@ class DayDisplayState extends State<DayDisplay> {
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 )
                               ],
-                            ),
+                            // ),
                           ),
                         ),
                       )),
@@ -87,7 +86,7 @@ class DayDisplayState extends State<DayDisplay> {
                           child: Container(
                               decoration: BoxDecoration(
                                   color: Theme.of(context).cardColor),
-                              padding: EdgeInsets.fromLTRB(20, 8, 15, 0),
+                              padding: EdgeInsets.fromLTRB(15, 8, 5, 0),
                               child: Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -124,7 +123,7 @@ class DayDisplayState extends State<DayDisplay> {
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: const Icon(Icons.arrow_forward_rounded,
-                            size: 60, color: Colors.black),
+                            size: 40, color: Colors.black),
                       ),
                     ),
                   )

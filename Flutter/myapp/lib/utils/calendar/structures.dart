@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/utils/calendar/calendar-utils.dart';
 import 'package:myapp/utils/calendar/demo-data.dart';
@@ -15,7 +17,17 @@ class Event {
   }
 
   bool conflicts(Event event) {
-    return (range.start.isAfter(event.range.start) && range.start.isBefore(event.range.end)) || (range.end.isAfter(event.range.start) && range.end.isBefore(event.range.end));
+    return max(range.start.millisecondsSinceEpoch, event.range.start.millisecondsSinceEpoch) < min(range.end.millisecondsSinceEpoch, event.range.end.millisecondsSinceEpoch);
+  }
+
+  static bool eventsHaveAnyConflict(List<Event> events) {
+    for(int i=0; i<events.length; i++) {
+      for(int j=0; j<events.length; j++) {
+        if(i==j) break;
+        if(events[i].conflicts(events[j])) return true;
+      }
+    }
+    return false;
   }
 
   @override
