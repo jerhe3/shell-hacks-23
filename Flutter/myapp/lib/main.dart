@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/pages/home.dart';
+import 'package:myapp/utils/calendar/demo-data.dart';
 import 'package:myapp/utils/colors.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:myapp/utils/globals.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -15,6 +17,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+    // TEMPORARY DEMO EVENTS
+    userEvents = List.empty(growable: true);
+    userEvents?.addAll(DEMO_EVENTS_2);
+
+
     return MaterialApp(
       title: 'Schedule Builder',
       theme: ThemeData(

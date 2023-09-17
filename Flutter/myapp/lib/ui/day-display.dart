@@ -33,17 +33,14 @@ class DayDisplayState extends State<DayDisplay> {
 
     String text = events == 1 ? "EVENT ON" : "EVENTS ON";
 
-    print("Widget");
-
     return Padding(
           padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
           child: Container(
             constraints: BoxConstraints(maxWidth: 350),
             child: GestureDetector(
               onTapDown: (details) {
-                print("IM BEING TOUCHEDDD!");
                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-                  return CalendarDetail(date: DateTime.now(),);
+                  return CalendarDetail(date: date,);
                 }));
                 setState(() {
                   _scale = 2.0;
