@@ -5,7 +5,7 @@ import 'package:myapp/widgets/message_composer.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({  
+  const ChatPage({
     required this.chatApi,
     super.key,
   });
