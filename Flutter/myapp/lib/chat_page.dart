@@ -4,7 +4,6 @@ import 'package:myapp/models/chat_message.dart';
 import 'package:myapp/widgets/message_bubble.dart';
 import 'package:myapp/widgets/message_composer.dart';
 import 'package:flutter/material.dart';
-import 'package:yelp_fusion_client/models/hours.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({

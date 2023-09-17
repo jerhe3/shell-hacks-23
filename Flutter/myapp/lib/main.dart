@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/api/chat_api.dart';
-import 'package:myapp/chat_page.dart';
 import 'package:myapp/pages/home.dart';
-import 'package:myapp/pages/mainPage.dart';
 import 'package:myapp/utils/colors.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
-
-  print("Loaded");
 
   runApp(const MyApp());
 }

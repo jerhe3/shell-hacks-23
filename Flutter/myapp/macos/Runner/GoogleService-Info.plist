@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.myapp</string>
+	<string>com.shellypeople.planpilot</string>
 	<key>PROJECT_ID</key>
 	<string>firestore-example-two</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:48934607056:ios:4320bd4c7ad0fbea07e6d5</string>
+	<string>1:48934607056:ios:f6caa23a48789d5007e6d5</string>
 </dict>
 </plist>

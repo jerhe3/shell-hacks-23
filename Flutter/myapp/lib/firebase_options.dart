@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAvwAAzWEgbxmO-xU8sp0b6IxVZpdRznIo',
-    appId: '1:48934607056:android:3bbc27542e75880b07e6d5',
+    appId: '1:48934607056:android:8a267eeb4154fa0607e6d5',
     messagingSenderId: '48934607056',
     projectId: 'firestore-example-two',
     storageBucket: 'firestore-example-two.appspot.com',
@@ -62,19 +62,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDEy01YHrpaSDza-4ZusAkzzYXCNT3ltYg',
-    appId: '1:48934607056:ios:4320bd4c7ad0fbea07e6d5',
+    appId: '1:48934607056:ios:f6caa23a48789d5007e6d5',
     messagingSenderId: '48934607056',
     projectId: 'firestore-example-two',
     storageBucket: 'firestore-example-two.appspot.com',
-    iosBundleId: 'com.example.myapp',
+    iosBundleId: 'com.shellypeople.planpilot',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDEy01YHrpaSDza-4ZusAkzzYXCNT3ltYg',
-    appId: '1:48934607056:ios:4320bd4c7ad0fbea07e6d5',
+    appId: '1:48934607056:ios:f6caa23a48789d5007e6d5',
     messagingSenderId: '48934607056',
     projectId: 'firestore-example-two',
     storageBucket: 'firestore-example-two.appspot.com',
-    iosBundleId: 'com.example.myapp',
+    iosBundleId: 'com.shellypeople.planpilot',
   );
 }

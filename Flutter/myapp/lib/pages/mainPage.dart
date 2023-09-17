@@ -3,7 +3,6 @@ import 'package:myapp/pages/suggestionsPage.dart';
 import 'package:myapp/ui/calendar.dart';
 import 'package:myapp/ui/day-display.dart';
 import 'package:myapp/utils/pagescrollphysics.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
