@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/utils/calendar/calendar-utils.dart';
 import 'package:myapp/utils/calendar/optimizer.dart';
 import 'package:myapp/utils/calendar/structures.dart';
+import '../globals.dart';
 
 List<CalendarEvent> DEMO_EVENTS_1 = [
   CalendarEvent(

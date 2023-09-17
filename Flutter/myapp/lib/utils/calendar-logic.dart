@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:myapp/api/gcal/googleCalendarEvent.dart';
+import 'package:myapp/utils/calendar/structures.dart';
 
 class CalendarLogic {
   CalendarLogic._();
@@ -19,6 +22,39 @@ class CalendarLogic {
 
   static String formatDateTime(DateTime dt) {
     return DateFormat.Hm().format(dt);
+  }
+
+  static List<CalendarEvent> addCalendarEvent(
+      List<CalendarEvent>? calendar, CalendarEvent event) {
+    if (calendar == null) {
+      calendar = <CalendarEvent>[];
+      calendar.add(event);
+      return calendar;
+    }
+
+    var flag = 0;
+    calendar.forEach((calendar_event) {
+      if (isOverLapping(calendar_event.range.start, calendar_event.range.end,
+          event.range.start, event.range.end)) {
+        flag = 1;
+      }
+    });
+
+    if (flag == 1) {
+      return calendar;
+    }
+
+    calendar.add(event);
+
+    return calendar;
+  }
+
+  static CalendarEvent googleToNormalConverter(GoogleCalendarEvent gcal) {
+    CalendarEvent temp;
+
+    temp = new CalendarEvent(gcal.timeRange!, gcal.summary!, false);
+
+    return temp;
   }
 }
 
