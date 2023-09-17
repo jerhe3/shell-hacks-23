@@ -9,6 +9,7 @@ import 'package:myapp/ui/suggestions/suggestion-card.dart';
 import 'package:myapp/utils/calendar/calendar-suggestions.dart';
 import 'package:myapp/utils/calendar/demo-data.dart';
 import 'package:myapp/utils/pagescrollphysics.dart';
+import '../utils/globals.dart';
 
 int NUM_CARDS = 5;
 List<SuggestionsRow> newRows = List.empty(growable: true);
@@ -16,6 +17,7 @@ List<SuggestionsRow> newRows = List.empty(growable: true);
 class SuggestionsPage extends StatefulWidget {
   SuggestionsPage() {
     print("Init 2");
+    print(userId);
     if (newRows.isEmpty) {
       newRows.add(SuggestionsRow(
         prompt: "Restaraunts",
