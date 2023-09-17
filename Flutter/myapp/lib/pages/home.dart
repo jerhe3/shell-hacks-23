@@ -6,7 +6,7 @@ import 'package:myapp/pages/mainPage.dart';
 import 'package:myapp/utils/calendar/calendar-utils.dart';
 import 'package:myapp/utils/calendar/demo-data.dart';
 import 'package:myapp/utils/calendar/optimizer.dart';
-import 'authPages/authpage.dart';
+import '../utils/authPages/authpage.dart';
 
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
@@ -14,12 +14,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import './authPages/constants.dart';
-import './authPages/hero.dart';
-import './authPages/user.dart';
+import '../utils/authPages/constants.dart';
+import '../utils/authPages/hero.dart';
+import '../utils/authPages/user.dart';
 
 import 'package:http/http.dart' as http;
-import 'googleCalendarEvent.dart';
+import '../api/gcal/googleCalendarEvent.dart';
 import 'userProfile.dart';
 
 class Home extends StatefulWidget {
@@ -102,32 +102,6 @@ class HomeState extends State<Home> {
     var access_token = res["access_token"];
 
     return access_token;
-
-    var response2 = await http.get(
-      Uri.parse(
-          "https://dev-is1igt546vy76y0i.us.auth0.com/api/v2/users/$userId"),
-      headers: {"authorization": "Bearer $access_token"},
-    );
-
-    var profile = jsonDecode(response2.body);
-
-    var profileParsed = Root.fromJson(profile);
-
-    var oauthtoken = profileParsed.identities![0]!.accesstoken!;
-
-    var response3 = await http.get(Uri.parse(
-        "https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=$oauthtoken&2023-09-17T07:07:28-00:00&timeMax=2023-09-18T07:07:28-00:00&singlEvents=true"));
-
-    dynamic calendar = jsonDecode(response3.body);
-    List<GoogleCalendarEvent> events = <GoogleCalendarEvent>[];
-
-    if (calendar['items'] != null) {
-      calendar['items']!.forEach((v) {
-        if (v['status'] != "cancelled") {
-          events.add(GoogleCalendarEvent.fromJson(v));
-        }
-      });
-    }
   }
 
   @override

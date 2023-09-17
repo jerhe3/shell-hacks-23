@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-import 'package:myapp/pages/googleCalendarEvent.dart';
+import 'package:myapp/api/gcal/googleCalendarEvent.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/pages/userProfile.dart';
 
@@ -16,8 +16,14 @@ class GoogleCalendar {
 
     if (calendar['items'] != null) {
       calendar['items']!.forEach((v) {
-        if (v['status'] != "cancelled" && (v)) {
-          events.add(GoogleCalendarEvent.fromJson(v));
+        if (v['status'] != "cancelled") {
+          GoogleCalendarEvent temp = GoogleCalendarEvent.fromJson(v);
+          if (temp.startTime != null && temp.endTime != null) {
+            if (DateTime.parse(temp.startTime!).isAfter(startRange) &&
+                DateTime.parse(temp.endTime!).isBefore(endRange)) {
+              events.add(v);
+            }
+          }
         }
       });
     }
