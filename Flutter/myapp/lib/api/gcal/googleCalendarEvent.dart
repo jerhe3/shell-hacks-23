@@ -10,8 +10,9 @@ class GoogleCalendarEvent {
       {required this.startTime, required this.summary, required this.endTime});
 
   GoogleCalendarEvent.fromJson(Map<String, dynamic> json) {
-    summary =
-        json["summary"] == null ? "Untited Event" : json["summary"] as String;
+    summary = json["summary"] == null
+        ? "Untited CalendarEvent"
+        : json["summary"] as String;
     startTime = json["start"]["dateTime"] == null
         ? "Unvalid"
         : json["start"]["dateTime"] as String;
