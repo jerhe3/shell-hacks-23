@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/pages/mainPage.dart';
@@ -15,6 +17,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import './authPages/constants.dart';
 import './authPages/hero.dart';
 import './authPages/user.dart';
+
+import 'package:http/http.dart' as http;
+import 'googleCalendarEvent.dart';
+import 'userProfile.dart';
 
 class Home extends StatefulWidget {
   final Auth0? auth0;
@@ -55,6 +61,8 @@ class HomeState extends State<Home> {
 
       setState(() {
         _user = credentials.user;
+
+        getGoogleApiId(credentials.user.sub);
       });
     } catch (e) {
       print(e);
@@ -75,6 +83,50 @@ class HomeState extends State<Home> {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<String> getGoogleApiId(String userId) async {
+    var response = await http.post(
+        Uri.parse("https://dev-is1igt546vy76y0i.us.auth0.com/oauth/token"),
+        headers: {"content-type": "application/json"},
+        body: jsonEncode({
+          "client_id": "nEdTXXPUTq7N7XmhnbFlk8wtAajIEsl1",
+          "client_secret":
+              "T6486qdbfTW7mx3UbmRjNRDah13RLbS8GnBi4GS0imHN4XFjMTuS0QClDsMl0u55",
+          "audience": "https://dev-is1igt546vy76y0i.us.auth0.com/api/v2/",
+          "grant_type": "client_credentials"
+        }));
+
+    var res = jsonDecode(response.body);
+    var access_token = res["access_token"];
+
+    return access_token;
+
+    var response2 = await http.get(
+      Uri.parse(
+          "https://dev-is1igt546vy76y0i.us.auth0.com/api/v2/users/$userId"),
+      headers: {"authorization": "Bearer $access_token"},
+    );
+
+    var profile = jsonDecode(response2.body);
+
+    var profileParsed = Root.fromJson(profile);
+
+    var oauthtoken = profileParsed.identities![0]!.accesstoken!;
+
+    var response3 = await http.get(Uri.parse(
+        "https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=$oauthtoken&2023-09-17T07:07:28-00:00&timeMax=2023-09-18T07:07:28-00:00&singlEvents=true"));
+
+    dynamic calendar = jsonDecode(response3.body);
+    List<GoogleCalendarEvent> events = <GoogleCalendarEvent>[];
+
+    if (calendar['items'] != null) {
+      calendar['items']!.forEach((v) {
+        if (v['status'] != "cancelled") {
+          events.add(GoogleCalendarEvent.fromJson(v));
+        }
+      });
     }
   }
 
