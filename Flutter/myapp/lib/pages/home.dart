@@ -3,24 +3,17 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/pages/mainPage.dart';
-import 'package:myapp/utils/calendar/calendar-utils.dart';
-import 'package:myapp/utils/calendar/demo-data.dart';
-import 'package:myapp/utils/calendar/optimizer.dart';
-import '../utils/authPages/authpage.dart';
 
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../utils/authPages/constants.dart';
 import '../utils/authPages/hero.dart';
-import '../utils/authPages/user.dart';
 
 import 'package:http/http.dart' as http;
-import '../api/gcal/googleCalendarEvent.dart';
-import '../utils/userProfile.dart';
+import '../utils/globals.dart';
 
 class Home extends StatefulWidget {
   final Auth0? auth0;
@@ -61,8 +54,9 @@ class HomeState extends State<Home> {
 
       setState(() {
         _user = credentials.user;
+        userId = credentials.user.sub;
 
-        getGoogleApiId(credentials.user.sub);
+        getGoogleApiId(userId!);
       });
     } catch (e) {
       print(e);
