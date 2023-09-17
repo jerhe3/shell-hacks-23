@@ -98,7 +98,7 @@ class Optimizer {
       if (element.grade >= 0) print(element);
     });
 
-    return gradedDistributions.first.events;
+    return gradedDistributions.last.events;
   }
 
   // Using the events given in the distribution, rate it

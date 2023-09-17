@@ -1,3 +1,4 @@
+import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/pages/home.dart';
 import 'package:myapp/utils/calendar/demo-data.dart';
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
     userEvents?.addAll(DEMO_EVENTS_2);
 
 
-    return MaterialApp(
+    return CalendarControllerProvider(
+    controller: EventController(),
+    child: MaterialApp(
       title: 'Schedule Builder',
       theme: ThemeData(
         primarySwatch:
@@ -37,6 +40,7 @@ class MyApp extends StatelessWidget {
             MaterialColorGenerator.from(Color.fromRGBO(146, 189, 163, 1)),
       ),
       home: Home(),
-    );
+    ),
+);
   }
 }
