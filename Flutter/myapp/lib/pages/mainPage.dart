@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/pages/suggestionsPage.dart';
 import 'package:myapp/ui/calendar.dart';
 import 'package:myapp/ui/day-display.dart';
 import 'package:myapp/utils/pagescrollphysics.dart';
@@ -12,6 +13,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int currentPageIndex = 0;
   int _length = 5;
 
   final controller = ScrollController();
@@ -49,6 +51,13 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      currentPageIndex = index;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     ListView list = ListView.builder(
@@ -68,13 +77,14 @@ class _MainPageState extends State<MainPage> {
     );
 
     return Scaffold(
-      body: Column(children: [
+      body: <Widget>[Column(children: [
         Container(
             constraints: BoxConstraints(maxHeight: 390),
             child: Expanded(
               flex: 1,
               child: Calendar(
                 listController: controller,
+
               ),
             )),
         Expanded(
@@ -86,7 +96,14 @@ class _MainPageState extends State<MainPage> {
           // )
         )
       ]),
+      SuggestionsPage()][currentPageIndex],
       backgroundColor: Theme.of(context).secondaryHeaderColor,
+      bottomNavigationBar: BottomNavigationBar(items: [
+        BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/logo-alone.png'),size: 20.0,), label: "Home"),
+        BottomNavigationBarItem(icon: Icon(Icons.star_border,size: 20.0), label: "Suggestions")
+        ],
+        onTap: _onItemTapped,
+        currentIndex: currentPageIndex,),
     );
   }
 }
