@@ -1,3 +1,3 @@
-# shell-hacks-23
+# PlanPilot
 
 Contributors: Jerry He, Alex Hynds, Vannessa Junoco, Arjun Vooturi
