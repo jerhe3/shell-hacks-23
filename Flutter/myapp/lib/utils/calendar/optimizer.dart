@@ -7,7 +7,7 @@ import 'package:myapp/utils/calendar/structures.dart';
 
 class Optimizer {
 
-  final int ITERATIONS = 10;
+  final int ITERATIONS = 10000;
   
   // The number of minutes to snap an event to; the lower the slower
   final int TICKS = 60;
@@ -71,6 +71,8 @@ class Optimizer {
     // Loop through stored combinations and rate them
     List<GradedDistribution> gradedDistributions = List.empty(growable: true);
     for(int i=0; i<storedDistributions.length; ++i) {
+      // Sort stored version according to start time
+      storedDistributions[i].sort(((a, b) => a.range.start.compareTo(b.range.start)));
       gradedDistributions.add(GradedDistribution(events: storedDistributions[i], grade: score(storedDistributions[i], config)));
     }
 
@@ -93,11 +95,32 @@ class Optimizer {
     
     // Check if there is overlap in any events
     if(Event.eventsHaveAnyConflict(events)) SCORE -= 100;
-
     
+    // Free time equation to add
+    SCORE += (1/1800000)*pow((freeTime(events, config).inMinutes)-200,2);
+
+    // Subtract for every gap that is < Buffer
+    for(int i=0; i<events.length-1; ++i) {
+      print("Hi");
+      if(events[i].range.end.difference(events[i+1].range.start) < config.buffer) {
+        SCORE -= config.buffer.inMinutes/1000.0;
+      }
+    }
+
+    // Add points for large gap until end
+    SCORE += config.freeTime[events.first.range.start.weekday]!.end.difference(events.last.range.end).inMinutes/240.0;
 
     return SCORE;
 
+  }
+
+  Duration freeTime(List<Event> events, OptimizeConfig config) {
+    Duration dur = Duration.zero;
+    dur += config.freeTime[events.first.range.start.weekday]!.start.difference(events.first.range.start);
+    for(int i=1; i<events.length-1; ++i) {
+      dur += events[i].range.end.difference(events[i+1].range.start);
+    }
+    return dur;
   }
   
 
