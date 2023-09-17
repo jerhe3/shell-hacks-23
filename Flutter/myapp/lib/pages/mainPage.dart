@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: <Widget>[Column(children: [
         Container(
-            constraints: BoxConstraints(maxHeight: 450),
+            constraints: BoxConstraints(maxHeight: 390),
             child: Expanded(
               flex: 1,
               child: Calendar(
