@@ -80,7 +80,7 @@ class _CalendarState extends State<Calendar> {
         return;
       }
 
-      int index = (day.difference(DateTime.now())).inDays + 2;
+      int index = (day.difference(DateTime.now())).inDays + 1;
 
       print("Index: " + index.toString());
 

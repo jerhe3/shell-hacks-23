@@ -48,6 +48,8 @@ class SuggestionCardState extends State<SuggestionCard>
     PlacesSearchResponse placesResponse =
         await places.searchByText("$api_info");
 
+    print(api_info);
+
     PlacesDetailsResponse placesDetails =
         await places.getDetailsByPlaceId(placesResponse.results[0].placeId);
 

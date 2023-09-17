@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/pages/suggestionsPage.dart';
 import 'package:myapp/ui/calendar.dart';
 import 'package:myapp/ui/day-display.dart';
+import 'package:myapp/utils/globals.dart';
 import 'package:myapp/utils/pagescrollphysics.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,16 +19,16 @@ class _MainPageState extends State<MainPage> {
   final controller = ScrollController();
 
   List<Widget> days = [
-    DayDisplay(date: DateTime.now(), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 1)), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 2)), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 3)), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 4)), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 5)), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 6)), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 7)), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 8)), events: 0),
-    DayDisplay(date: DateTime.now().add(Duration(days: 9)), events: 0),
+    DayDisplay(date: DateTime.now(), events: eventsOnDay(DateTime.now()).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 1)), events: eventsOnDay(DateTime.now().add(Duration(days: 1))).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 2)), events: eventsOnDay(DateTime.now().add(Duration(days: 2))).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 3)), events: eventsOnDay(DateTime.now().add(Duration(days: 3))).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 4)), events: eventsOnDay(DateTime.now().add(Duration(days: 4))).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 5)), events: eventsOnDay(DateTime.now().add(Duration(days: 5))).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 6)), events: eventsOnDay(DateTime.now().add(Duration(days: 6))).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 7)), events: eventsOnDay(DateTime.now().add(Duration(days: 7))).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 8)), events: eventsOnDay(DateTime.now().add(Duration(days: 8))).length),
+    DayDisplay(date: DateTime.now().add(Duration(days: 9)), events: eventsOnDay(DateTime.now().add(Duration(days: 9))).length),
   ];
 
   @override
@@ -45,7 +46,7 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       for (int i = 0; i < 10; i++) {
         days.add(DayDisplay(
-            date: DateTime.now().add(Duration(days: days.length)), events: 0));
+            date: DateTime.now().add(Duration(days: days.length)), events: eventsOnDay(DateTime.now().add(Duration(days: days.length))).length));
       }
     });
   }

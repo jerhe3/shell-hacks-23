@@ -219,7 +219,7 @@ class _DayViewState extends ZoomableHeadersWidgetState<DayView> {
     }
 
     Widget mainWidget = SizedBox(
-      height: calculateHeight(),
+      height: 400,
       child: Stack(children: children..insert(0, createBackground())),
     );
 
