@@ -18,7 +18,10 @@ class SuggestionsPage extends StatefulWidget {
   SuggestionsPage() {
     print("Init 2");
     if(newRows.isEmpty) {
-      newRows.add(SuggestionsRow(prompt: "Bacon",));
+      newRows.add(SuggestionsRow(prompt: "Restaraunts",));
+      newRows.add(SuggestionsRow(prompt: "Outdoor",));
+      newRows.add(SuggestionsRow(prompt: "Nightlife",));
+      newRows.add(SuggestionsRow(prompt: "Culture",));
     }
   }
 
@@ -180,9 +183,8 @@ class SuggestionsPageState extends State<SuggestionsPage> {
   _generateCards(String prompt) async {
     Navigator.of(context).pop(false);
     setState(() {
-      newRows.add(SuggestionsRow(prompt: "NEW ROW 2!"));
+      newRows.add(SuggestionsRow(prompt: prompt));
     });
-    // print(await gptHandler.ask(prompt));
   }
 
 }
@@ -240,6 +242,7 @@ class SuggestionsRowState extends State<SuggestionsRow> with AutomaticKeepAliveC
               Container(
                 height: 300,
                 child: ListView.builder(
+                  addAutomaticKeepAlives: true,
                   clipBehavior: Clip.none,
                   physics: PagingScrollPhysics(itemDimension: 325 + 15 + 15),
                   shrinkWrap: true,

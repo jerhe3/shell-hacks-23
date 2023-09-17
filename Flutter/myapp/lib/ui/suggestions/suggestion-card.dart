@@ -14,7 +14,7 @@ class SuggestionCard extends StatefulWidget {
 
 }
 
-class SuggestionCardState extends State<SuggestionCard> {
+class SuggestionCardState extends State<SuggestionCard> with AutomaticKeepAliveClientMixin {
 
   GPTHandler gptHandler = GPTHandler();
 
@@ -41,10 +41,11 @@ class SuggestionCardState extends State<SuggestionCard> {
 
     print(response);
 
-    response.replaceAll(p, replace)
+    response = response.replaceAll('\n\n', '\n');
 
-    String title = response.split('\n')[0];
-    String desc = response.split
+    String title = response.split('\n')[0].replaceAll("\"", '');
+    String desc = response.split('\n')[1];
+    String api_info = response.split('\n')[2].replaceAll("\"", '');
 
   setState(() {
     _returnCard = Padding(
@@ -53,7 +54,7 @@ class SuggestionCardState extends State<SuggestionCard> {
             children: [
               Container(
                 width: 325,
-                height: 175,
+                height: 150,
                 child: Image.asset('assets/miami.jpeg', fit: BoxFit.cover),
               ),
               Padding(
@@ -64,22 +65,22 @@ class SuggestionCardState extends State<SuggestionCard> {
                       Row(
                         children: [
                           Container(
-                            constraints: BoxConstraints(minWidth: 200, maxWidth: 200, minHeight: 90),
+                            constraints: BoxConstraints(minWidth: 200, maxWidth: 200, minHeight: 90+25),
                             decoration: BoxDecoration(border:BorderDirectional(end: BorderSide(color: Colors.black12, width: 2))),
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(title, style: TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold),),
+                                  Text(title, style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),),
                                   SizedBox(height: 3,),
-                                  Text("This is a very long description that will be very cool to read.", style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal), softWrap: true, overflow: TextOverflow.visible,),
+                                  Text(desc, style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.normal), softWrap: true, overflow: TextOverflow.visible,),
                                 ],
                               ),
                             )
                           ),
                           Container(
-                            constraints: BoxConstraints(minHeight: 90, minWidth: 95),
+                            constraints: BoxConstraints(minHeight: 90+25, minWidth: 95),
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                               child: Column(
@@ -105,13 +106,22 @@ class SuggestionCardState extends State<SuggestionCard> {
     
   }
 
-  @override
-  Widget build(Object context) async {
-
+  // called on first build
+  bool alreadyCalled = false;
+  firstAIRun() {
     // OPEN AI PROMPT !!!!
     String openai = "I have an open time slot between ${DateFormat.jm().format(range.start)} and ${DateFormat.jm().format(range.end)} this ${DateFormat.EEEE().format(range.start)}. I live in downtown Miami. I am in the mood for $prompt. Give me something fun to do.";
 
     generateReturnCard(openai);
+  }
+
+  @override
+  Widget build(Object context) {
+
+    if(!alreadyCalled) {
+      alreadyCalled = true;
+      firstAIRun();
+    }
 
     return SizedBox(width: 325, height: 275, 
       child: Container(
@@ -125,5 +135,8 @@ class SuggestionCardState extends State<SuggestionCard> {
       ),
     );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 
 }
