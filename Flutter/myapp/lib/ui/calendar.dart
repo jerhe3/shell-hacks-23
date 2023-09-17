@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/api/chat_api.dart';
 import 'package:myapp/ui/calendar_model.dart';
 import 'package:myapp/utils/calendar-logic.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -57,7 +58,7 @@ class _CalendarState extends State<Calendar> {
           padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
           decoration: BoxDecoration(
               border: Border(
-            top: BorderSide(color: Theme.of(context).dividerColor),
+            top: BorderSide(color: Theme.of(context).primaryColor),
           )),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,13 +73,13 @@ class _CalendarState extends State<Calendar> {
     setState(() {
       print(day);
       print(listController);
-
+      
       if(day.isBefore(DateTime.now().subtract(Duration(days: 1)))) {
         print("Selected day is before today, skipping.");
         return;
       }
 
-      int index = (day.difference(DateTime.now())).inDays + 1;
+      int index = (day.difference(DateTime.now())).inDays + 2;
 
       print("Index: " + index.toString());
 
@@ -113,7 +114,7 @@ class _CalendarState extends State<Calendar> {
           borderRadius: BorderRadius.circular(6),
         ),
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue,
         child: Stack(
       children: <Widget>[
         Container(
@@ -212,7 +213,7 @@ class _CalendarState extends State<Calendar> {
               todayDecoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.all(Radius.circular(10.0))),
               defaultTextStyle: TextStyle(color: Colors.white, fontSize: 15),
               selectedDecoration: BoxDecoration(color: Colors.green),
-              outsideTextStyle: TextStyle(color: Colors.white60),
+              outsideTextStyle: TextStyle(color: Colors.white24),
               weekendTextStyle: TextStyle(color: Colors.white60),
               outsideDaysVisible: false,
               selectedTextStyle: TextStyle(color: Colors.blue),

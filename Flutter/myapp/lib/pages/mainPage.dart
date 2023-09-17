@@ -70,7 +70,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: Column(children: [
         Container(
-            constraints: BoxConstraints(maxHeight: 390),
+            constraints: BoxConstraints(maxHeight: 450),
             child: Expanded(
               flex: 1,
               child: Calendar(
