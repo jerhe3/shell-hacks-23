@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:myapp/api/gcal/googleCalendarEvent.dart';
 import 'package:myapp/utils/calendar/structures.dart';
 
 class CalendarLogic {
@@ -45,6 +47,14 @@ class CalendarLogic {
     calendar.add(event);
 
     return calendar;
+  }
+
+  static CalendarEvent googleToNormalConverter(GoogleCalendarEvent gcal) {
+    CalendarEvent temp;
+
+    temp = new CalendarEvent(gcal.timeRange!, gcal.summary!, false);
+
+    return temp;
   }
 }
 

@@ -32,7 +32,8 @@ class GoogleCalendar {
     }
 
     events.forEach((e) {
-      CalendarLogic.addCalendarEvent(userEvents, )
+      CalendarLogic.addCalendarEvent(
+          userEvents, CalendarLogic.googleToNormalConverter(e));
     });
 
     return events;
