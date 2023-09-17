@@ -20,6 +20,8 @@ class CalendarDetail extends StatefulWidget {
   State<StatefulWidget> createState() => CalendarDetailState(date: date);
 }
 
+List<FlutterWeekViewEvent> toDisplayEvents = List.empty(growable: true);
+
 class CalendarDetailState extends State<CalendarDetail> {
   final DateTime date;
 
@@ -34,13 +36,16 @@ class CalendarDetailState extends State<CalendarDetail> {
     // Get events for this day
     List<CalendarEvent> todaysEvents = eventsOnDay(date);
 
+    toDisplayEvents = convertEvents(todaysEvents);
+
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
           DayView(
+            userZoomable: true,
             date: date,
-            events: convertEvents(todaysEvents),
+            events: toDisplayEvents,
             style: DayViewStyle.fromDate(
               date: date,
               currentTimeCircleColor: Colors.pink,
