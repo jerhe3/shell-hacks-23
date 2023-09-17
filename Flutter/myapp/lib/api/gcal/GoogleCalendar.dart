@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:myapp/api/gcal/googleCalendarEvent.dart';
 import 'package:http/http.dart' as http;
-import 'package:myapp/pages/userProfile.dart';
+import 'package:myapp/utils/userProfile.dart';
 
 class GoogleCalendar {
   Future<List<GoogleCalendarEvent>> getListEvents(

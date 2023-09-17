@@ -20,7 +20,7 @@ import '../utils/authPages/user.dart';
 
 import 'package:http/http.dart' as http;
 import '../api/gcal/googleCalendarEvent.dart';
-import 'userProfile.dart';
+import '../utils/userProfile.dart';
 
 class Home extends StatefulWidget {
   final Auth0? auth0;
@@ -112,67 +112,89 @@ class HomeState extends State<Home> {
         body: Padding(
           padding: const EdgeInsets.only(
             top: padding,
-            bottom: padding,
+            bottom: padding / 2,
             left: padding / 2,
             right: padding / 2,
           ),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Expanded(
-                child: Row(children: [
-              _user != null
-                  ? Column(
-                      children: [
-                        Image.network(_user!.pictureUrl.toString()),
-                        Text("Welcome to PlanPilot, ${_user!.name}"),
-                        ElevatedButton(
-                          onPressed: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => const MainPage())),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Color.fromRGBO(102, 189, 137, 1)),
-                          ),
-                          child: const Text('Go to your calendar'),
-                        )
-                      ],
-                    )
-                  : const Expanded(child: HeroWidget())
-            ])),
-            _user != null
-                ? ElevatedButton(
-                    onPressed: logout,
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Color.fromRGBO(102, 189, 137, 1)),
-                    ),
-                    child: const Text('Logout'),
-                  )
-                : Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: login,
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                        ),
-                        child: const Text('Login'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => const MainPage())),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color.fromRGBO(102, 189, 137, 1)),
-                        ),
-                        child: const Text('Go to your calendar'),
-                      )
-                    ],
-                  )
-          ]),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    child: _user != null
+                        ? Center(
+                            child: Column(
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    child: Image.network(
+                                        _user!.pictureUrl.toString())),
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Text("Welcome to PlanPilot, ${_user!.name}",
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontSize: 30,
+                                        fontFamily: CupertinoIcons.iconFont)),
+                                SizedBox(
+                                  height: 100,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const MainPage())),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color.fromRGBO(102, 189, 137, 1)),
+                                  ),
+                                  child: const Text('Go to your calendar',
+                                      style: TextStyle(color: Colors.white)),
+                                ),
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                ElevatedButton(
+                                  onPressed: logout,
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color.fromRGBO(102, 189, 137, 1)),
+                                  ),
+                                  child: const Text('Logout',
+                                      style: TextStyle(color: Colors.white)),
+                                )
+                              ],
+                            ),
+                          )
+                        : Expanded(
+                            child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const HeroWidget(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: login,
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                    ),
+                                    child: const Text('Login'),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ))),
+              ]),
         ));
   }
 }
