@@ -7,7 +7,7 @@ import 'package:myapp/utils/calendar/structures.dart';
 
 class Optimizer {
 
-  final int ITERATIONS = 1;
+  final int ITERATIONS = 10000;
   
   // The number of minutes to snap an event to; the lower the slower
   final int TICKS = 60;
@@ -39,24 +39,25 @@ class Optimizer {
       adjustedDailyRanges.add(copy);
     }
 
-    dailyRanges.forEach((element) { print(element.toString()); });
+    // dailyRanges.forEach((element) { print(element.toString()); });
 
     // Loop through INTERATION(#) random variations of mutable events and store the ones that work
+    Random rand = Random();
     List<List<Event>> storedDistributions = List.empty(growable: true);
     for(int i=0; i<ITERATIONS; ++i) {
       // Copy events
-      List<Event> newDist = events;
+      List<Event> newDist = List.from(events);
       for(int j=0; j<events.length; ++j) {
         // Pick a random start time within the range that fits the event in
 
         int randomDay = 0;
         if(range.duration.inDays>1) {
-          randomDay = Random().nextInt(range.duration.inDays);
+          randomDay = rand.nextInt(range.duration.inDays);
         }
 
         // Pick a random 15 minute slot in the time frame
         int slotCount = (adjustedDailyRanges[j][randomDay].duration.inMinutes / TICKS).floor();
-        int slot = Random().nextInt(slotCount);
+        int slot = rand.nextInt(slotCount);
         DateTime startDay = range.start.add(Duration(days: randomDay)).startOfDay;
         DateTime rangeStart = adjustedDailyRanges[j]![randomDay].start;
         DateTime startTime = startDay.add(Duration(hours: rangeStart.hour, minutes: rangeStart.minute));
@@ -64,13 +65,14 @@ class Optimizer {
 
         newDist[j] = Event(DateTimeRange(start: startTime, end: startTime.add(events[j].duration())), events[j].name);
       }
-
-      
+      storedDistributions.add(newDist);
     }
 
     // Loop through stored combinations and rate them
     List<GradedDistribution> gradedDistributions = List.empty(growable: true);
     for(int i=0; i<storedDistributions.length; ++i) {
+      // Sort stored version according to start time
+      storedDistributions[i].sort(((a, b) => a.range.start.compareTo(b.range.start)));
       gradedDistributions.add(GradedDistribution(events: storedDistributions[i], grade: score(storedDistributions[i], config)));
     }
 
@@ -78,13 +80,47 @@ class Optimizer {
     // SORT THE LIST !!!!!!!
     gradedDistributions.sort((a,b) => a.grade.compareTo(b.grade));
 
+    gradedDistributions.forEach((element) {
+      if(element.grade >= 0) print(element);
+    });
+
     return gradedDistributions.first.events;
 
   }
 
   // Using the events given in the distribution, rate it
   double score(List<Event> events, OptimizeConfig config) {
-    return 0.0;
+
+    double SCORE = 0.0;
+    
+    // Check if there is overlap in any events
+    if(Event.eventsHaveAnyConflict(events)) SCORE -= 100;
+    
+    // Free time equation to add
+    SCORE += (1/1800000)*pow((freeTime(events, config).inMinutes)-200,2);
+
+    // Subtract for every gap that is < Buffer
+    for(int i=0; i<events.length-1; ++i) {
+      print("Hi");
+      if(events[i].range.end.difference(events[i+1].range.start) < config.buffer) {
+        SCORE -= config.buffer.inMinutes/1000.0;
+      }
+    }
+
+    // Add points for large gap until end
+    SCORE += config.freeTime[events.first.range.start.weekday]!.end.difference(events.last.range.end).inMinutes/240.0;
+
+    return SCORE;
+
+  }
+
+  Duration freeTime(List<Event> events, OptimizeConfig config) {
+    Duration dur = Duration.zero;
+    dur += config.freeTime[events.first.range.start.weekday]!.start.difference(events.first.range.start);
+    for(int i=1; i<events.length-1; ++i) {
+      dur += events[i].range.end.difference(events[i+1].range.start);
+    }
+    return dur;
   }
   
 
@@ -105,5 +141,10 @@ class GradedDistribution {
   final double grade;
 
   GradedDistribution({required this.events, required this.grade});
+
+  @override
+  String toString() {
+    return grade.toString() + ": " + events.toString();
+  }
 
 }
