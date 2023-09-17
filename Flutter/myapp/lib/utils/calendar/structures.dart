@@ -10,7 +10,7 @@ class Event {
   bool static = false;
   // Location? location;
 
-  Event(this.range, this.name) {}
+  Event(this.range, this.name, static) {}
 
   Duration duration() {
     return range.duration;

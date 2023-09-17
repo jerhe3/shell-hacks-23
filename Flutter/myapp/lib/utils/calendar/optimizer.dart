@@ -63,7 +63,7 @@ class Optimizer {
         DateTime startTime = startDay.add(Duration(hours: rangeStart.hour, minutes: rangeStart.minute));
         startTime = startTime.add(Duration(minutes: slot*TICKS));
 
-        newDist[j] = Event(DateTimeRange(start: startTime, end: startTime.add(events[j].duration())), events[j].name);
+        newDist[j] = Event(DateTimeRange(start: startTime, end: startTime.add(events[j].duration())), events[j].name, events[j].static);
       }
       storedDistributions.add(newDist);
     }

@@ -5,11 +5,11 @@ import 'package:myapp/utils/calendar/structures.dart';
 
 List<Event> DEMO_EVENTS_1 = [
 
-  Event(RangeUtils.fromTimes(DateTime.now(), 10,00,12,00), "10 to 12"),
-  Event(RangeUtils.fromTimes(DateTime.now(), 4,00,5,00), "4 to 5"),
-  Event(RangeUtils.fromTimes(DateTime.now(), 3,30,3,45), "3:30 to 3:45"),
-  Event(RangeUtils.fromTimes(DateTime.now(), 9,15,10,30), "9:15 to 10:30"),
-  Event(RangeUtils.fromTimes(DateTime.now(), 1,25,1,55), "1:25 to 1:55"),
+  Event(RangeUtils.fromTimes(DateTime.now(), 10,00,12,00), "10 to 12", false),
+  Event(RangeUtils.fromTimes(DateTime.now(), 4,00,5,00), "4 to 5", false),
+  Event(RangeUtils.fromTimes(DateTime.now(), 3,30,3,45), "3:30 to 3:45", false),
+  Event(RangeUtils.fromTimes(DateTime.now(), 9,15,10,30), "9:15 to 10:30", false),
+  Event(RangeUtils.fromTimes(DateTime.now(), 1,25,1,55), "1:25 to 1:55", false),
 
 ];
 
@@ -26,3 +26,13 @@ Map<int,DateTimeRange> DEMO_FREE_TIME_1 = {
     6: RangeUtils.fromTimes(DateTime.now(),10,00,20,00), // Saturday
     7: RangeUtils.fromTimes(DateTime.now(),11,00,18,00), // Sunday
   };
+
+
+List<Event> DEMO_EVENTS_2 = [
+
+  Event(RangeUtils.fromTimes(DateTime.now(), 8, 00, 9, 00), "One-on-One with John",false),
+  Event(RangeUtils.fromTimes(DateTime.now(), 10, 00, 11, 00), "Walk the Dog",false),
+  Event(RangeUtils.fromTimes(DateTime.now(), 12, 00, 14, 00), "Calculus 3",true),
+  Event(RangeUtils.fromTimes(DateTime.now(), 15, 00, 16, 00), "Hang Out with Albert",false),
+
+];
