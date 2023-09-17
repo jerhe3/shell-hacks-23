@@ -8,6 +8,7 @@ import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:myapp/utils/userProfile.dart';
 
 import '../utils/authPages/constants.dart';
 import '../utils/authPages/hero.dart';
@@ -97,10 +98,21 @@ class HomeState extends State<Home> {
     var res = jsonDecode(response.body);
     var access_token = res["access_token"];
 
-    GoogleCalendar.getListEvents(DateTime.parse("2023-09-15"),
-        DateTime.parse("2023-09-19"), access_token);
+    var response2 = await http.get(
+      Uri.parse(
+          "https://dev-is1igt546vy76y0i.us.auth0.com/api/v2/users/$userId"),
+      headers: {"authorization": "Bearer $access_token"},
+    );
 
-    return access_token;
+    var profile = jsonDecode(response2.body);
+
+    var profileParsed = Root.fromJson(profile);
+
+    var oauthtoken = profileParsed.identities![0]!.accesstoken!;
+
+    GoogleCalendar.getListEvents(("2023-09-15"), ("2023-09-20"), oauthtoken);
+
+    return oauthtoken;
   }
 
   @override
