@@ -6,7 +6,7 @@ class ChatApi {
   static const _model = 'gpt-4';
 
   ChatApi() {
-    OpenAI.apiKey = "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";
+    OpenAI.apiKey = dotenv.env["API_KEY"]!;
     // OpenAI.organization = api_org;
   }
 
