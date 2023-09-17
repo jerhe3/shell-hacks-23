@@ -46,7 +46,7 @@ class SuggestionCardState extends State<SuggestionCard>
     String api_info = response.split('\n')[2].replaceAll("\"", '');
 
     PlacesSearchResponse placesResponse =
-        await places.searchByText("$api_info");
+        await places.searchByText("$api_info miami");
 
     PlacesDetailsResponse placesDetails =
         await places.getDetailsByPlaceId(placesResponse.results[0].placeId);

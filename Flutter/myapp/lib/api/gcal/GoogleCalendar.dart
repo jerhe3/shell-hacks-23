@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:myapp/api/gcal/googleCalendarEvent.dart';
 import 'package:http/http.dart' as http;
+import 'package:myapp/utils/calendar-logic.dart';
+import 'package:myapp/utils/globals.dart';
 import 'package:myapp/utils/userProfile.dart';
+import '../../utils/globals.dart';
 
 class GoogleCalendar {
   Future<List<GoogleCalendarEvent>> getListEvents(
@@ -27,6 +30,10 @@ class GoogleCalendar {
         }
       });
     }
+
+    events.forEach((e) {
+      CalendarLogic.addCalendarEvent(userEvents, )
+    });
 
     return events;
   }
