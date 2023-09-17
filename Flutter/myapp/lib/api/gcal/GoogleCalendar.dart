@@ -9,7 +9,7 @@ import 'package:myapp/utils/userProfile.dart';
 import '../../utils/globals.dart';
 
 class GoogleCalendar {
-  Future<List<GoogleCalendarEvent>> getListEvents(
+  static Future<List<GoogleCalendarEvent>> getListEvents(
       DateTime startRange, DateTime endRange, String oauthtoken) async {
     var response3 = await http.get(Uri.parse(
         "https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=$oauthtoken&2023-09-17T07:07:28-00:00&timeMax=2023-09-18T07:07:28-00:00&singlEvents=true"));

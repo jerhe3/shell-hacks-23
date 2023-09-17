@@ -15,6 +15,8 @@ import '../utils/authPages/hero.dart';
 import 'package:http/http.dart' as http;
 import '../utils/globals.dart';
 
+import '../api/gcal/GoogleCalendar.dart';
+
 class Home extends StatefulWidget {
   final Auth0? auth0;
   const Home({this.auth0, final Key? key}) : super(key: key);
@@ -94,6 +96,9 @@ class HomeState extends State<Home> {
 
     var res = jsonDecode(response.body);
     var access_token = res["access_token"];
+
+    GoogleCalendar.getListEvents(DateTime.parse("2023-09-15"),
+        DateTime.parse("2023-09-19"), access_token);
 
     return access_token;
   }
